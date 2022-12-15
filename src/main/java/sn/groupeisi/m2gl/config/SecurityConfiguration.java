@@ -128,7 +128,7 @@ public class SecurityConfiguration {
             .pathMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .pathMatchers("/api/**").authenticated()
             .pathMatchers("/services/*/v3/api-docs").hasAuthority(AuthoritiesConstants.ADMIN)
-            .pathMatchers("/services/**").authenticated()
+            .pathMatchers("/services/**").permitAll()
             .pathMatchers("/management/health").permitAll()
             .pathMatchers("/management/health/**").permitAll()
             .pathMatchers("/management/info").permitAll()
@@ -136,7 +136,7 @@ public class SecurityConfiguration {
             .pathMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN);
 
         http.oauth2Login(oauth2 -> oauth2.authorizationRequestResolver(authorizationRequestResolver(this.clientRegistrationRepository)))
-            
+
             .oauth2ResourceServer()
                 .jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
